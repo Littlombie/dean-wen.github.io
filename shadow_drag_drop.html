@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>带阴影的拖拽效果</title>
+<style type="text/css">
+	*{margin:0;padding:0;}
+	body{background:#000;}
+	div{position:absolute;width:100px;height:100px;cursor:move;background:#f90;border:1px solid #fff;cursor:move;}
+	#drag{left:300px;top:200px;}
+	/*阴影的样式*/
+	#shadow{opacity:.3;filter:alpha(opacity=30);}
+</style>
+<script src="get.js"></script>
+<script>
+	window.onload = function(){
+		var oDrag = get.byId('drag');
+		drag(oDrag);
+	};
+	var zIndex = 1;
+	var drag = function(objDrag){
+		var disX = disY = 0;
+		
+		objDrag.onmousedown = function(evt){
+			var that = this;
+			var evt = getEvent(evt);
+			disX = evt.clientX - this.offsetLeft;
+			disY = evt.clientY - this.offsetTop;
+			/*
+				因为阴影是在鼠标按下的时候产生的，所以在down事件处理函数中处理
+				
+			*/
+			var shadow = document.createElement('div');
+			shadow['id'] = 'shadow';
+			shadow.style.left = this.currentStyle ? this.currentStyle['left'] : getComputedStyle(this, null)['left'];
+			shadow.style.top = this.currentStyle ? this.currentStyle['top'] : getComputedStyle(this, null)['top'];
+			shadow.style.zIndex = zIndex++;
+			document.body.appendChild(shadow);
+			
+			document.onmousemove = function(evt){
+				var evt = getEvent(evt);
+				var currentLeft = evt.clientX - disX,
+					currentTop = evt.clientY - disY,
+					maxLeft = document.documentElement.clientWidth - that.offsetWidth,
+					maxTop = document.documentElement.clientHeight - that.offsetHeight;
+					
+					/*currentLeft = currentLeft < 0 ? 0 : currentLeft;
+					currentTop = currentTop < 0 ? 0 : currentTop;
+					
+					currentLeft = currentLeft < maxLeft ? maxLeft : currentLeft;
+					currentTop = currentTop < maxTop ? maxTop : currentTop;
+					*/
+					currentLeft <= 0 && (currentLeft = 0);
+					currentLeft >= maxLeft && (currentLeft = maxLeft);
+					
+					currentTop <= 0 && (currentTop = 0);
+					currentTop >= maxTop && (currentTop = maxTop);
+				
+					
+					shadow.style.left = currentLeft + 'px';
+					shadow.style.top = currentTop + 'px';
+					return false;
+			};
+			document.onmouseup = function(){
+				objDrag.onmousemove = null;
+				document.onmousemove = null;
+				document.onmouseup = null;
+				//当鼠标抬起的时候， 让物体和影子重合
+				that.style.left = shadow.style.left;
+				that.style.top = shadow.style.top;
+				that.style.zIndex = shadow.style.zIndex;
+				//移除影子
+				document.body.removeChild(shadow);
+				that.releaseCapture && this.releaseCapture();
+			};
+			this.setCapture && this.setCapture();
+			return false;
+		};
+			
+	};
+	var getEvent = function(event){
+		return event ? event : window.event;	
+	};
+</script>
+</head>
+
+<body>
+	<div id="drag"></div>
+</body>
+</html>
