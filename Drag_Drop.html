@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>javascript拖拽效果</title>
+<style type="text/css">
+	*{margin:0;padding:0;}
+	#main{position:absolute;width:300px;border:1px solid #000;background:#eee;}
+	#title{background:#ccc;color:#fff;padding:7px 0 7px 10px;cursor:move;}
+	.content{height:200px;}
+</style>
+</head>
+
+<body>
+	<div id="main">
+    	<div id="title">
+        	<span>拖拽效果演示</span>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+    <p>添加一些测试性的文字</p>
+    <P>在低版本的浏览器中，可能会发生文字被选中的问题，专业店说叫用户体验性不好。</P>
+    <script>
+		var oTitle = document.getElementById('title');
+		var oBox = document.getElementById('main');
+		/*disX 是鼠标到物体左边的距离，disY是鼠标到物体上边的距离*/
+		var disX = 0;
+		var disY = 0;
+		
+		oTitle.onmousedown = function(evt){
+			var that = this;
+			var evt = evt || window.event;
+			disX = evt.clientX - oBox.offsetLeft;
+			disY = evt.clientY - oBox.offsetTop;
+			//鼠标按下之后再去触发onmousemove时间，否则在你没有按下鼠标，物体也会跟着鼠标移动，姿势不对。
+			document.onmousemove = function(evt){
+				var evt = evt || window.event;
+				//移动过程中物体的的left值和top值发生改变
+				//oBox.style.left = evt.clientX - disX + 'px';
+				//oBox.style.top = evt.clientY - disY + 'px';	
+				/*
+					为了避免拖出浏览器的范围，需要对拖动范围进行限制
+				*/
+				var currentLeft = evt.clientX - disX,
+					currentTop = evt.clientY - disY,
+					//物体到浏览器左边的最大距离
+					maxLeft = document.documentElement.clientWidth - oBox.offsetWidth,
+					//物体到浏览器上边的最大距离
+					maxTop = document.documentElement.clientHeight - oBox.offsetHeight;
+					
+				currentLeft = currentLeft < 0 ? 0 : currentLeft;
+				currentLeft = currentLeft > maxLeft ? maxLeft : currentLeft;
+				
+				currentTop = currentTop < 0 ? 0 : currentTop;
+				currentTop = currentTop > maxTop ? maxTop : currentTop;
+				
+				oBox.style.left = currentLeft + 'px';
+				oBox.style.top = currentTop + 'px';
+				document.title = oBox.style.left + ',' + oBox.style.top ;
+			};
+			//当然了，鼠标抬起，就让它停止运动
+			document.onmouseup = function(){
+				oBox.onmousedown = null;
+				document.onmousemove = null;
+				that.releaseCapture	&& that.releaseCapture();
+			};
+			//setCapture只支持IE浏览器，所以要做下兼容
+			this.setCapture && this.setCapture();
+			/*
+				return false可以阻止浏览器的默认行为
+				可以解决低版本FF下，拖动空内容物体时，会出现一个影子的问题
+			*/
+			return false;
+		};
+		
+	</script>
+</body>
+</html>
