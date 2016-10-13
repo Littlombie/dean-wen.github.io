@@ -1,36 +1,3 @@
----
-title: 小书匠语法使用手册
-tags: 小书匠,语法,MARKDOWN,帮助
-grammar_abbr: true
-grammar_table: true
-grammar_defList: true
-grammar_emoji: true
-grammar_footnote: true
-grammar_ins: true
-grammar_mark: true
-grammar_sub: true
-grammar_sup: true
-grammar_checkbox: true
-grammar_mathjax: true
-grammar_flow: true
-grammar_sequence: true
-grammar_plot: true
-grammar_code: true
-grammar_highlight: true
-grammar_html: true
-grammar_linkify: true
-grammar_typographer: true
-grammar_video: true
-grammar_audio: true
-grammar_attachment: true
-grammar_mermaid: true
-grammar_classy: true
-grammar_cjkEmphasis: true
-grammar_cjkRuby: true
-grammar_center: true
-grammar_align: true
-grammar_tableExtra: true
---- 
 
 # 常用语法
 ## 标题
@@ -161,9 +128,9 @@ var b = "good luck";
 
 ## 自动转换成超链接
 系统将自动根据内容，将地址转换成超链接格式
-```markdown
+
 http://markdown.xiaoshujiang.com
-```
+
 ## HTML
 
 <div class="hey">Hello world</div>
@@ -177,9 +144,9 @@ http://markdown.xiaoshujiang.com
 
 # 扩展语法
 ## 目录
-```markdown
+
 [toc]
-```
+
 ## 扩展的文字格式
 
 ++插入的文字++
@@ -258,7 +225,7 @@ Note right of 小李: 小李想了想
 小李-->小明: 还是老样子
 ```
 
-# 小书匠编辑器扩展语法
+# 扩展语法
 
 ## 块代码内文字格式
 ### 块代码高亮标记
@@ -288,7 +255,7 @@ var >>++hello++<< = 'hello world'
 
 
 
-小书匠编辑器提供了附件管理功能，用户可通过`./`对附件的引用，比如图片`./jiangzhu.jpg`。附件的上传需通过工具栏的插入图片`ctrl+g`，插入视频`ctrl+shift+v`，插入音频`ctrl+shift+a`，插入附件`ctrl+shift+t`功能键进行操作。
+编辑器提供了附件管理功能，用户可通过`./`对附件的引用，比如图片`./jiangzhu.jpg`。附件的上传需通过工具栏的插入图片`ctrl+g`，插入视频`ctrl+shift+v`，插入音频`ctrl+shift+a`，插入附件`ctrl+shift+t`功能键进行操作。
 ## 视频
 ```markdown
 %[名称](链接地址)
@@ -311,8 +278,8 @@ var >>++hello++<< = 'hello world'
 元数据必须放置在每篇文章的开头才能生效。如果文章里有元数据时，系统将自动以元数据的标题为准，用户通过文章信息的维护界面修改的标题及tags将会被覆盖掉。
 
 ---
-title: 小书匠语法使用手册
-tags: 小书匠,语法,MARKDOWN,帮助
+title: 语法使用手册
+tags: 语法,MARKDOWN,帮助
 --- 
 
 ## mermaid流程图，序列图，甘特图（[mermaid语法](http://knsv.github.io/mermaid/index.html)）
