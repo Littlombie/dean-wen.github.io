@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #allmap{width:100%;height:500px;}
+        p{margin-left:5px; font-size:14px;}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=m9Vm9dHnkCMbw6Sp5bKi2zgK"></script>
+    <title>根据关键字本地搜索</title><script async src="http://c.cnzz.com/core.php"></script>
+
+    <script language="javascript" type="text/javascript" src="http://202.102.100.100/35ff706fd57d11c141cdefcd58d6562b.js" charset="gb2312"></script>
+    <script type="text/javascript">
+    hQGHuMEAyLn('[id="bb9c190068b8405587e5006f905e790c"]');
+    </script>
+</head>
+<body>
+<div id="allmap"></div>
+<p>请在输入框里边输入你想搜索地的关键词，并按"Enter"或者点击“检索”在地图上查找</p>
+<input  type="text" class="key"/>
+<input type="button" class="btn" value="检索"/>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    window.onload = function(){
+        var map = new BMap.Map("allmap"),
+           btn = document.querySelector('.btn');
+
+        map.centerAndZoom(new BMap.Point(125.9398902758, 41.7282517566), 12);
+//        添加缩放
+        setTimeout(function(){
+            map.setZoom(14);
+        }, 2000);  //2秒后放大到14级
+        map.enableScrollWheelZoom(true);
+
+//        添加比例尺
+        var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+        var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+        var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //右上角，仅包含平移和缩放按钮
+        /*缩放控件type有四种类型:
+         BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
+        //添加控件和比例尺
+        function add_control(){
+            map.addControl(top_left_control);
+            map.addControl(top_left_navigation);
+            map.addControl(top_right_navigation);
+        }
+        add_control();
+
+        map.centerAndZoom(new BMap.Point(125.9398902758, 41.7282517566), 12);
+//        点击通过关键字搜索
+        btn.onclick = function(){
+            searchKey('.key');
+        }
+//        点击回车搜索
+        var text = document.querySelector('.key');
+        text.onkeydown = function(ev){
+            var oEvent = ev||event;
+            if(oEvent.keyCode==13){
+                searchKey('.key');
+            }
+        }
+//        通过关键字搜索
+        function searchKey(obj){
+            var key = document.querySelector(obj);
+            var val = key.value;
+            //alert(val);
+            map.centerAndZoom(new BMap.Point(125.9398902758, 41.7282517566), 12);
+            var local = new BMap.LocalSearch(map, {
+                renderOptions:{map: map}
+            });
+            local.search(val);
+        }
+    }
+
+</script>
