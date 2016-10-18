@@ -140,6 +140,11 @@ HTMLElement.prototype.addClass = function(className) {
         this.className = className;
     }
 }
+//调用
+window.onload = function(){
+    var obj = document.getElementById(Id);
+    obj.addClass(className);
+}
 
 // ---------------------------------------------------------------------------
 
