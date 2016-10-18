@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js运动6</title>
+    <style type="text/css">
+        .containor div {
+            width: 100px;
+            height: 50px;
+            margin-top: 30px;
+            line-height: 50px;
+            text-align: center;
+            background: red;
+            border: 5px solid #000;
+        }
+
+        #div5 {
+            filter: alpha(opacity:30);
+            opacity: .3;
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        window.onload = function () {
+            //变宽
+            var oDiv1 = document.getElementById('div1');
+
+            oDiv1.onmouseover = function () {
+                startMove(this, 'width', 200);
+            }
+            oDiv1.onmouseout = function () {
+                startMove(this, 'width', 100);
+            }
+            //变高
+            var oDiv2 = document.getElementById('div2');
+
+            oDiv2.onmouseover = function () {
+                startMove(this, 'height', 200);
+            }
+            oDiv2.onmouseout = function () {
+                startMove(this, 'height', 50);
+            }
+            //文字变大
+            var oDiv3 = document.getElementById('div3');
+
+            oDiv3.onmouseover = function () {
+                startMove(this, 'font-size', 20);
+            }
+            oDiv3.onmouseout = function () {
+                startMove(this, 'font-size', 12);
+            }
+            //边框加粗
+            var oDiv4 = document.getElementById('div4');
+
+            oDiv4.onmouseover = function () {
+                startMove(this, 'borderWidth', 20);
+            }
+            oDiv4.onmouseout = function () {
+                startMove(this, 'borderWidth', 5);
+            }
+            //变透明度
+            var oDiv5 = document.getElementById('div5');
+
+            oDiv5.onmouseover = function () {
+                startMove(this, 'opacity', 100);
+            }
+            oDiv5.onmouseout = function () {
+                startMove(this, 'opacity', 30);
+            }
+            //变边框颜色
+            var oDiv6 = document.getElementById('div6');
+            oDiv6.onmouseover = function () {
+                fadeColor({
+                            r: 0,
+                            g: 0,
+                            b: 0
+                        }, //star color
+                        {
+                            r: 18,
+                            g: 162,
+                            b: 143
+                        }, //end color
+                        function (color) {
+                            oDiv6.style.borderColor = color;
+                        }, 0.25, 10);
+            }
+            oDiv6.onmouseout = function () {
+                fadeColor({
+                            r: 18,
+                            g: 162,
+                            b: 143
+                        }, //star color
+                        {
+                            r: 0,
+                            g: 0,
+                            b: 0
+                        }, //end color
+                        function (color) {
+                            oDiv6.style.borderColor = color;
+                        }, 0.25, 10);
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+<div class="containor">
+    <div id="div1">变宽</div>
+    <div id="div2">变高</div>
+    <div id="div3">文字变大</div>
+    <div id="div4">边框加粗</div>
+    <div id="div5">透明度变化</div>
+    <div id="div6" onclick="tggg()">变边框颜色</div>
+</div>
+</body>
+
+</html>

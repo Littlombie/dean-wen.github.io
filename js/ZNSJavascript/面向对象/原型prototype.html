@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>对象组成</title>
+    <script>
+    function CreatPerson(name, qq) { //构造函数（里边放属性）
+        // 系统偷偷创建好this对象
+        // var this = new Object();
+        // 加工
+        // this是新的空白对象
+        this.name = name;
+        this.qq = qq;
+        // 系统偷偷返回出去
+        // return this;
+    }
+    // 原型(里边放方法；一样的东西放在这里边)
+    // 可以给自己新建的类（如CreatPerson）添加方法
+    CreatPerson.prototype.showName = function(aa) {
+        alert('我的名字:' + this.name);
+    }
+    CreatPerson.prototype.showQQ = function() {
+        alert('我的qq号:' + this.qq);
+    }
+    var obj = new CreatPerson('张三', '1245145');
+    var obj2 = new CreatPerson('李四', '124514adga5');
+    // obj.showName();
+    // obj.showQQ();
+    alert(obj.showName(22)==obj2.showName(22));
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

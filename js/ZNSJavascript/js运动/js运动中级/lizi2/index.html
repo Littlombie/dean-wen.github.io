@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js运动中级2</title>
+    <style>
+    #div1 {
+        width: 100px;
+        height: 100px;
+        background: #F00;
+        filter: alpha(opacity: 60);
+        opacity: 0.6;
+    }
+    </style>
+    <script src="move2.js"></script>
+    <script>
+    var block = true;
+    window.onload = function() {
+
+        var btn = document.getElementById('button');
+        var oDiv = document.getElementById('div1');
+        btn.onclick = function() {
+            startMove(oDiv, {
+                width: 500,
+                height: 300,
+                opacity: 100
+            }, function() {
+                alert(1);
+            });
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <input id="button" type="button" value="点击开始">
+    <div id="div1"></div>
+</body>
+
+</html>

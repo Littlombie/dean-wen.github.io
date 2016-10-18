@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+    #div1 {
+        width: 200px;
+        height: 200px;
+        background: red;
+        position: absolute;
+        left: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="开始运动" onclick="stratMove()">
+    <div id="div1"></div>
+</body>
+<script>
+timer = null;
+
+function stratMove() {
+    var oDiv = document.getElementById("div1");
+    clearInterval(timer);
+    timer = setInterval(function() {
+        speed = 10;
+        if (oDiv.offsetLeft == 300) {
+            clearInterval(timer);
+        } else {
+            oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+        }
+    }, 30);
+}
+</script>
+
+</html>

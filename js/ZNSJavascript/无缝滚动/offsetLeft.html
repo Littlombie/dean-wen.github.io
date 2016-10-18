@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+    #div1 {
+        width: 200px;
+        height: 200px;
+        background: red;
+        position: absolute;
+        left: 200px;
+        top: 200px;
+        margin: 50px;
+    }
+    </style>
+    <script src="move.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        var odiv = document.getElementById('div1');
+        oBtn1.onclick = function() {
+            // alert();
+            startMove(odiv, {'left':900,'width':250,'height':300},function(){
+                document.title = '运动到向左900个像素';
+            });
+        }
+        oBtn2.onclick = function() {
+            // alert();
+            startMove(odiv, {'left':200,'width':200,'height':200},function(){
+                document.title = '运动到向右900个像素';
+            });
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <input type="button" id="btn1" value="btn1">
+    <input type="button" id="btn2" value="btn2">
+    <div id="div1"></div>
+</body>
+
+</html>

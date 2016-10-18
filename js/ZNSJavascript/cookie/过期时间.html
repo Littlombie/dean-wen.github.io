@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset="utf-8">
+	<title>cookie</title>
+	<script>
+        var oDate  =new Date();
+        // 设置内部时间  setDate() 加多少表示多少天以后
+        oDate.setDate(oDate.getDate()+14);
+        document.cookie = 'user =blue;expires='+oDate;
+        alert(document.cookie);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

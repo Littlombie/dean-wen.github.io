@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>自定义滚动条</title>
+    <style>
+    #parent {
+        position: relative;
+        width: 600px;
+        height: 20px;
+        margin: 50px auto;
+        background: #ccc;
+    }
+    
+    #div1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: #f00;
+    }
+    
+    #div2 {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid #333;
+        overflow: hidden;
+    }
+    
+    #div3 {
+        position: absolute;
+        top:0;
+        left:0;
+        padding-bottom:30px;
+    }
+    </style>
+    <script>
+    window.onload = function() {
+        var oDiv = document.getElementById('div1');
+        var oDiv2 = document.getElementById('div2');
+        var oDiv3 = document.getElementById('div3');
+        var oParent = document.getElementById('parent');
+        var disX = 0;
+        oDiv.onmousedown = function(ev) {
+            var oEvent = ev || event;
+            disX = oEvent.clientX - oDiv.offsetLeft;
+            if (oDiv.setCapture) {
+                // ie
+                oDiv.onmousemove = mouseMove;
+                oDiv.onmouseup = mouseUp;
+                oDiv.setCapture();
+            } else {
+                // chrome,FF
+                document.onmousemove = mouseMove;
+                document.onmouseup = mouseUp;
+            }
+
+            // mousemove 提出来封装
+            function mouseMove(ev) {
+                var oEvent = ev || event;
+                var l = oEvent.clientX - disX;
+                if (l < 0) {
+                    l = 0;
+                } else if (l > oParent.offsetWidth - oDiv.offsetWidth) {
+                    l = oParent.offsetWidth - oDiv.offsetWidth;
+                }
+                oDiv.style.left = l + 'px';
+                // 滚动的进度
+                var scale = l / (oParent.offsetWidth - oDiv.offsetWidth);
+                oDiv3.style.top =-scale*(oDiv3.offsetHeight-oDiv2.offsetHeight)+'px';
+            }
+            // mouseUp 提出来封装
+            function mouseUp() {
+                this.onmousemove = null;
+                this.onmouseup = null;
+                if (oDiv.releaseCapture) {
+                    oDiv.releaseCapture();
+                }
+            }
+            return false;
+        }
+
+    }
+    </script>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="div1">
+        </div>
+    </div>
+    <div id="div2">
+        <div id="div3">
+            基本上本文就是对 React 官方 v0.14 博文 的翻译加上一小部分个人理解。 正文开始之前先讲个笑话，随着 React 的风靡许多基于 React 的衍生库也火得一塌糊涂，比如 React Router。如果没记错的话 React Router 的作者说过版本号永远和 React 保持一致，从 v0.10 开始确实如此。然后 v0.11，v0.12，v0.13，眼看着时间已经过去了一年多……怎么着也该出 v1.0 了吧，结果 React 发布了 v0.14，而且还规划了 v0.15，让 React Router 的若干个 v1.0-beta 版本哭瞎在厕所。 react router github repo 好了，回到 React v0.14 上。 React 「一分为二」 原本的 react package 被拆分为 react 及 react-dom 两个 package。其中 react package 中包含 React.createElement、 .createClass、 .Component， .PropTypes， .Children 这些 API，而 react-dom package 中包含 ReactDOM.render、 .unmountComponentAtNode、 .findDOMNode。 原本在服务端渲染用的两个 API .renderToString 和 .renderToStaticMarkup 被放在了 react-dom/server 中。 改变之后的结构，一个基本的 React 组件变成了这样： var React = require('react'); var ReactDOM = require('react-dom'); var MyComponent = React.createClass({ render: function() { return
+            <div>Hello World</div>; } }); ReactDOM.render(
+            <MyComponent />, node); 此外，原本 React.addons 下面的工具全部变成了独立的 package： react-addons-clone-with-props react-addons-create-fragment react-addons-css-transition-group react-addons-linked-state-mixin react-addons-perf react-addons-pure-render-mixin react-addons-shallow-compare react-addons-test-utils react-addons-transition-group react-addons-update ReactDOM.unstable_batchedUpdates （在 react-dom 中） 当然，原本的 API 在 v0.14 版中仍然可以使用，只不过会有 warning，最终会在 v0.15 版的时候完全移除。 refs 变成了真正的 DOM 节点 当我们需要获取 React 组件上某个 DOM 节点时，React 提供了 refs 方法方便我们快速引用。为了方便我们使用，React 还「贴心」地对 refs 做了一层封装，使用 this.refs.xxx.getDOMNode() 或 React.findDOMNode(this.refs.xxx) 可以获取到真正的 DOM 节点。 结果发现大家真正需要的就是 DOM 节点本身，封装了半天完全是浪费感情。 于是在 v0.14 版中 refs 指向的就是 DOM 节点，同时也会保留 .getDOMNode() 方法（带 warning），最终在 v0.15 版中去除该方法。 var Zoo = React.createClass({ render: function() { return
+            <div>Giraffe name:
+                <input ref="giraffe" />
+            </div>; }, showName: function() { // 之前： // var input = this.refs.giraffe.getDOMNode(); // // v0.14 版： var input = this.refs.giraffe; alert(input.value); } }); 需要注意的是，如果你给自定义的 React 组件（除了 DOM 自带的标签，如 div、p 等）添加 refs，表现和行为与之前一致。
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+    #div1 {
+        width: 200px;
+        height: 400px;
+        background: red;
+        filter: alpha(opacity: 30);
+        opacity: .3;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+    </div>
+</body>
+<script>
+window.onload = function() {
+    var oDiv = document.getElementById('div1');
+    oDiv.onmouseover = function() {
+        stratMove(100);
+    }
+    oDiv.onmouseout = function() {
+        stratMove(30);
+    }
+};
+
+var alpha = 30;
+var timer = null;
+
+function stratMove(iTarget) {
+    var oDiv = document.getElementById("div1");
+    clearInterval(timer);
+    timer = setInterval(function() {
+        var speed = 0;
+        if (alpha < iTarget) {
+            speed = 10;
+        } else {
+            speed = -10;
+        }
+        if (alpha == iTarget) {
+            clearInterval(timer);
+        } else {
+            alpha += speed;
+            oDiv.style.opacity = alpha / 100;
+            oDiv.style.filter = "alpha(opacity:'+alpha+')";
+        }
+    }, 30);
+}
+</script>
+
+</html>

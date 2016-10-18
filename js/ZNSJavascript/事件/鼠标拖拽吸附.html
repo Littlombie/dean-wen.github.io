@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>鼠标拖拽(touch)</title>
+	<style>
+        *{
+        	margin:0;
+        	padding: 0;
+        }
+        #div1 {
+        	position: absolute;
+        	width: 200px;
+        	height: 200px;
+        	background: #f00;
+        }
+	</style>
+	<script>
+        window.onload =function(){
+        	var oDiv = document.getElementById('div1');
+        	var disY =0;
+        	var disX =0;
+
+        	oDiv.onmousedown = function(ev){
+                var oEvent = ev || event;
+                disY =oEvent.clientY-oDiv.offsetTop;
+                disX =oEvent.clientX-oDiv.offsetLeft;
+                document.onmousemove = function(ev){
+                    var oEvent =ev || event;
+
+                    var l=oEvent.clientX-disX;
+			        var t=oEvent.clientY-disY;
+                    if(l<0){
+                    	l=0;
+                    }else if(l>document.documentElement.clientWidth-oDiv.offsetWidth){
+                      l=document.documentElement.clientWidth-oDiv.offsetWidth;
+                    }
+                     if(t<0){
+                    	t=0;
+                    }else if(t>document.documentElement.clientHeight-oDiv.offsetHeight){
+                      t=document.documentElement.clientHeight-oDiv.offsetHeight;
+                    }
+                    // 吸附  在物体离父级宽高距离小于50时，物体会自动变为0，大于时同理
+                     if(l<50){
+                        l=0;
+                    }else if(l>document.documentElement.clientWidth-oDiv.offsetWidth){
+                      l=document.documentElement.clientWidth-oDiv.offsetWidth;
+                    }
+                     if(t<50){
+                        t=0;
+                    }else if(t>document.documentElement.clientHeight-oDiv.offsetHeight){
+                      t=document.documentElement.clientHeight-oDiv.offsetHeight;
+                    }
+			        oDiv.style.left=l+'px';
+			        oDiv.style.top=t+'px';
+                };
+                document.onmouseup = function(){
+                	document.onmousemove =null;
+                	document.onmouseup =null;
+                };
+                return false;//阻止Firefox浏览器的bug（第二次拖拽是会出现幻影）
+        	};
+        };
+	</script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

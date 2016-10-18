@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>用cookie 实现登录读取用户名</title>
+    <script>
+    function setCookie(name, value, iDay) {
+        var oDate = new Date();
+        oDate.setDate(oDate.getDate() + iDay);
+        document.cookie = name + '=' + value + ";expires=" + oDate;
+    };
+
+    function getCookie(name) {
+        var arr = document.cookie.split('; ');
+        for (var i = 0; i < arr.length; i++) {
+            var arr2 = arr[i].split('=');
+            if (arr2[0] == name) {
+                return arr2[1];
+            }
+        }
+        return '';
+    };
+    window.onload = function() {
+        var oFrom = document.getElementById('form1');
+        var oUser = document.getElementsByName('user');
+        oFrom.onsubmit = function() {
+            setCookie('user', oUser.value, 14);
+        }
+        oUser.value = getCookie('user');
+    }
+    </script>
+</head>
+
+<body>
+    <form id="form1" action="http://www.baidu.com/">
+        用户名：
+        <input type="text" name='user'> 密 码：
+        <input type="pass" name='pass'>
+        <input type="submit" name='登录'>
+    </form>
+</body>
+
+</html>

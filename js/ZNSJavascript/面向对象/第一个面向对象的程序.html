@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>对象组成</title>
+    <script>
+    function creatPerson(name, qq) { //构造函数，用来构造个对象
+        // 原料
+        var obj = new Object();
+        // 加工
+        obj.name = name; //属性
+        obj.qq = qq;  //属性
+        obj.showName = function() { // 方法
+            alert('我的名字' + this.name);
+        }
+        obj.showQQ = function() {    // 方法
+                alert('我的qq号' + this.qq);
+            }
+            // 出厂
+        return obj;
+    }
+    var obj = creatPerson('zhangsa', '1245145');
+    obj.showName();
+    obj.showQQ();
+    var obj2 = creatPerson('sdfa', '124514adga5');
+    obj2.showName();
+    obj2.showQQ();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

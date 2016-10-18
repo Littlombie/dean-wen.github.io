@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Ajax</title>
+	<script src="../ajax.js"></script>
+	<script>
+        window.onload = function(){
+        	var oBtn = document.getElementById('btn'); 
+            oBtn.onclick =function(){
+            	ajax('test.txt?t='+new Date().getTime(),function(str){
+            		var arr =eval(str);
+                    alert(arr[0].a);
+            	},function(){
+            		alert('请求失败');
+            	});
+            }
+        }
+	</script>
+</head>
+<body>
+ <input id="btn" type="button" value="按钮">
+</body>
+</html>

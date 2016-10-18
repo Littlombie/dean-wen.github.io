@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>延迟提示框</title>
+	<style>
+	    div{float: left; margin:20px;}
+         #div1{width: 50px;height: 50px;background: red;}
+         #div2{width: 100px;height: 80px; background: #ccc;display: none;}
+	</style>
+	<script>
+        window.onload= function(){
+        	var odiv1 = document.getElementById("div1");
+        	var odiv2 = document.getElementById("div2");
+        	var timer = null;
+        	odiv1.onmouseover=odiv2.onmouseover = function(){
+        		clearTimeout(timer);
+                odiv2.style.display='block';
+        	};
+        	odiv1.onmouseout=odiv2.onmouseout= function(){
+                timer = setTimeout(function(){
+               	   odiv2.style.display= 'none';
+               },500);
+        	};
+        	// odiv2.onmouseover= function(){
+        	// 	clearTimeout(timer);
+        	// };
+        	// odiv2.onmouseout= function(){
+        	// 	timer = setTimeout(function(){
+         //       	    odiv2.style.display= 'none';
+         //       },500);
+        	// };
+        };
+	</script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+</html>

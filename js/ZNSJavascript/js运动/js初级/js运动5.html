@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js运动5</title>
+    <style type="text/css">
+        div{
+        	width:100px;
+        	height:50px;
+        	margin-top:30px;
+        	background: red;
+        	border:5px solid #000;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+        	var aDiv = document.getElementsByTagName('div');
+            for(var i=0;i<aDiv.length;i++){
+            	aDiv[i].timer = null;
+        	    aDiv[i].onmouseover= function(){
+        	    	startMove(this,'width',400);
+        	    }
+        	    aDiv[i].onmouseout = function(){
+        	    	startMove(this,'width',100);
+        	    }
+            }
+        }
+        // 获取元素内部样式
+        function getStyle(obj,name){
+               if(obj.currentStyle){
+                    return currentStyle[name];
+               }else{
+                    return getComputedStyle(obj,false)[name];
+               }
+        }
+        // var timer = null;
+        // 运动框架
+        function startMove(obj,attr,iTarget){
+           clearInterval(obj.timer);
+           obj.timer=setInterval(function(){
+           	   var cur = parseInt(getStyle(obj,attr));
+               var speed = parseInt(iTarget-cur)/6;
+               speed = speed>0?Math.ceil(speed):Math.floor(speed);
+               if(cur==iTarget){
+               	clearInterval(obj.timer);
+               }else{
+               	obj.style[attr]= cur+speed+'px';
+               }
+           },30);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <div id="div4"></div>
+    <div id="div5"></div>
+</body>
+
+</html>

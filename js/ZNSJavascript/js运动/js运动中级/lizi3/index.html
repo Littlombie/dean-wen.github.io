@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js运动中级----上下轮播图</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        list-style: none;
+    }
+    
+    .contaioner {
+        position: relative;
+        width: 722px;
+        height: 267px;
+        margin: 100px auto;
+        overflow: hidden;
+    }
+    
+    #bd ul {
+        position: absolute;
+        top: 0;
+    }
+    
+    #point {
+        position: absolute;
+        bottom: 5%;
+        right: 2%;
+        z-index: 19;
+        width: 18%;
+    }
+    
+    #point span {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        padding: 2px;
+        border: 1px solid #fff;
+        background: #ff0;
+        cursor: pointer;
+        text-align: center;
+        line-height: 0.9;
+        font-size: 12px;
+    }
+    
+    #point span.cur {
+        color: #fff;
+        background: #f00;
+    }
+    </style>
+    <script src="../lizi2/move2.js"></script>
+    <script>
+    window.onload = function() {
+    	var con =document.getElementById('contaioner');
+        var bd = document.getElementById('bd');
+        var oUl = bd.getElementsByTagName('ul')[0];
+        var oLi = bd.getElementsByTagName('li');
+        var poiont = document.getElementById('point');
+        var span = point.getElementsByTagName('span');
+        // oUl.style.height = -267*oLi.length;
+        now = 0;
+        for (var i = 0; i < span.length; i++) {
+            span[i].index = i;
+            span[i].onclick = function() {
+                now = this.index;
+                tab();
+            }
+        }
+        function tab() {
+            for (var i = 0; i < span.length; i++) {
+                span[i].className = '';
+            }
+            span[now].className = 'cur';
+            startMove(oUl, {
+                'top': -270 * now
+            });
+        }
+        function next() {
+            now++;
+            if(now==span.length){
+                 now=0
+            }
+            tab();
+        }
+        var timer = setInterval(next, 3000);
+        con.onmouseover = function(){
+        	clearInterval(timer);
+        }
+        con.onmouseout = function(){
+        	timer = setInterval(next, 3000);
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div class="contaioner" id="contaioner">
+        <div id="bd">
+            <ul>
+                <li><img src="images/0.jpg" alt="" /></li>
+                <li><img src="images/1.jpg" alt="" /></li>
+                <li><img src="images/2.jpg" alt="" /></li>
+                <li><img src="images/3.jpg" alt="" /></li>
+                <li><img src="images/4.jpg" alt="" /></li>
+            </ul>
+        </div>
+        <div id="point">
+            <span class="cur">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>键盘事件-回车+ctrl提交留言</title>
+	<script>
+        window.onload = function(){
+        	var oTxt1 = document.getElementById('text1');
+        	var oTxt2 = document.getElementById('text2');
+        	oTxt1.onkeydown = function(ev){
+                var oEvent = ev||event;
+                if(oEvent.keyCode==13 && oEvent.ctrlKey){
+                   oTxt2.value+= oTxt1.value+'\n';
+                   oTxt1.value ='';
+                }
+        	}
+        }
+	</script>
+</head>
+<body>
+<input id="text1" type="text"><br/>
+<textarea id="text2" style="margin-top:20px;">
+	
+</textarea>
+</body>
+</html>

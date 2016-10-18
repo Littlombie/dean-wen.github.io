@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset  ="utf-8"/>
+	<title>倒计时验证</title>
+	<style type="text/css">
+		body{
+			width: 100%;
+            text-align: center;
+		}
+		button{
+			padding: 8px 16px;
+			border: none;
+			margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+	<button class="getCode">获取验证码</button>
+	<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		var wait = 60;
+		function time (o) {
+			if(wait == 0){
+				o.removeAttribute("disabled");    
+                o.innerHTML="输入验证码";
+                o.style.backgroundColor="#fe9900";
+                wait=60;
+			}else{
+				o.setAttribute("disabled", true);
+                o.innerHTML= wait + "秒后重新获取";
+                o.style.backgroundColor="#8f8b8b";
+                o.style.color="#FFF";
+                wait--;
+                setTimeout(function(){
+                    time(o)
+                },1000)
+			}
+		}
+		// 最后点击按钮，调用time方法：
+		$(".getCode").click(function(){
+			time(this);
+		});
+	</script>
+</body>
+</html>

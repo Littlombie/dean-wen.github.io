@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js运动中级--模仿新浪微博</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        list-style: none;
+    }
+    
+    #container {
+        width: 600px;
+        height: 800px;
+        margin: 50px auto;
+        padding: 10px;
+        border: 1px solid #000;
+        text-align: center;
+    }
+    
+    textarea {
+        width: 70%;
+        height: 100px;
+        /* display: inline-block;
+        float: left;
+        margin-right: 3%;  */
+        vertical-align: middle;
+    }
+    
+    #pull {
+        /* display: inline-block;
+        float: left; */
+        width: 80px;
+        height: 30px;
+        /* margin-top: 30px; */
+        border: none;
+        background: #F59927;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+    
+    #box {
+        width: 95%;
+        height: 80%;
+        margin: 5% auto;
+        text-align: left;
+        border: 1px solid #F59927;
+        overflow-y: scroll;
+    }
+    
+    #box li {
+        width: 90%;
+        margin: 0 5%;
+        padding: 10px 0 0;
+        border-bottom: 1px dashed #ccc;
+        overflow: hidden;
+        filter: alpha(opacity: 0);
+        opacity: 0;
+        vertical-align: middle;
+    }
+    </style>
+    <script src="move.js"></script>
+    <script>
+    window.onload = function() {
+        var box = document.getElementById('box');
+        var text = document.getElementById('text');
+        var btn = document.getElementById('pull');
+
+        btn.onclick = function() {
+            if (text.value === "") {
+                alert('请输入内容');
+            } else if (text.value.length >= 280) {
+                alert('内容超过140字');
+                text.value = '';
+            } else {
+                var oLi = document.createElement('li'); //新建个li元素节点
+                oLi.innerHTML = text.value; //把textarea的支传到li中
+                text.value = ''; //清空text
+                if (box.children.length > 0) {
+                    box.insertBefore(oLi, box.children[0]); //把最新的Li插入到最上边
+                } else {
+                    box.appendChild(oLi);
+                }
+                var oHeight = oLi.offsetHeight;
+                oLi.style.height = '0';
+                startMove(oLi, {'height': oHeight},function(){
+                    startMove(oLi,{'opacity': 100});
+                });
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <textarea id="text" rows="10" cols="30"></textarea>
+        <input id="pull" type="button" value="发布">
+        <ul id="box">
+            <li>sssssss</li>
+        </ul>
+    </div>
+</body>
+
+</html>

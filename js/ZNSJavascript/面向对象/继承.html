@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>面向对象之继承父级的属性</title>
+	<script>
+        function A(){
+        	this.abc=12;
+        }
+        A.prototype.show = function(){
+        	alert(this.abc);
+        }
+        // 属性的继承用call来实现
+        function B(){
+            A.call(this);
+        }
+        var obj = new B();
+        alert(obj.abc);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

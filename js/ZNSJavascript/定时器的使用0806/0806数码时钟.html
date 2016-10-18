@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>数字时钟</title>
+	<script type="text/javascript">
+	    function toDou(n){
+	    	if(n<10){
+               return '0'+n;
+	    	}else{
+	    		return ""+n;
+	    	}
+	    }
+	    window.onload = function(){
+            var aImg = document.getElementsByTagName("img");
+            
+           
+            function timea(){
+                var oDate = new Date();
+                var str = toDou(oDate.getHours())+toDou(oDate.getMinutes())+toDou(oDate.getSeconds());
+                // alert(str);
+                for(var i=0;i<aImg.length;i++){
+                    // aImg[i].src='images/'+str[i]+'.png';
+                    aImg[i].src='images/'+str.charAt(i)+'.png'; //charAt()相当于[i]
+                };
+            };
+            setInterval(timea,1000);  
+            timea();
+        };
+	</script>
+</head>
+<body style="font-size: 30px;background: black;color: white;width: 100%;text-align: center;margin-top: 100px;">
+    <img src="images/0.png">
+    <img src="images/0.png">:
+    <img src="images/0.png">
+    <img src="images/0.png">:
+    <img src="images/0.png">
+    <img src="images/0.png">
+</body>
+</html>

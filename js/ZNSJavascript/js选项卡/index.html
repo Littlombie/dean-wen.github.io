@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js选项卡</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #container {
+        width: 400px;
+        height: 700px;
+        margin: 80px auto;
+        border: 2px solid #993;
+    }
+    
+    #container ul {
+        width: 98%;
+        padding: 1%;
+    }
+    
+    #container ul li {
+        display: inline-block;
+        width: 31%;
+        height: 120px;
+        border: 1px solid #556;
+        list-style: none;
+        background: #886;
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+        line-height: 80px;
+    }
+    
+    #container ul .now {
+        background: #335;
+    }
+    
+    #box {
+        width: 98%;
+        margin: 20px auto;
+        text-align: left;
+    }
+    </style>
+    <script>
+    window.onload = function() {
+
+        var arr = [
+            "快过年了，大家可以商量着去哪玩吧～",
+            "精通JavaScript开发课程 - 结课标准 - 有十条标准可让大家修练成JS高手……",
+            "HTML5开发课程，让你熟练掌握移动应用开发技术",
+            "精通各种DOM类应用，熟练掌握面向对象编程思想（OOP）、熟悉JS面向对象开发方式 - 智能课堂 - www.zhinengshe.com",
+            "熟练掌握AJAX技术及相关应用（例如：新浪微博级应用） - 智能课堂 - www.zhinengshe.com",
+            "可以独立写出类似jQuery的小型库（支持各类选择符、事件类、DOM、自定义动画animate、AJAX……） - 智能课堂 - www.zhinengshe.com",
+            "精通JS运动特效技术，能完整实现各类网站所有动画特效，如 智能课堂 官网 - 智能课堂 - www.zhinengshe.com",
+            "掌握JS调试及优化技术、能兼容所有浏览器 - 智能课堂 - www.zhinengshe.com",
+            "精通JS事件对象及事件的工作机制，并能完成各类跨平台应用模块的开发 - 智能课堂 - www.zhinengshe.com",
+            "能独立开发表现和性能都很优秀的RIA应用 - 智能课堂 - www.zhinengshe.com",
+            "了解后台编程的相关知识，能够和后台工程师配合完成大型交互应用 - 智能课堂 - www.zhinengshe.com",
+            "熟悉正则表达式的编写、应用及高级表单验证技术 - 智能课堂 - www.zhinengshe.com"
+        ]
+        var con = document.getElementById('container');
+        var oUl = document.getElementById('Ul');
+        var oLi = oUl.getElementsByTagName('li');
+        var text = document.getElementById('box');
+        for (var i = 0; i < oLi.length; i++) {
+            oLi[i].index = i;
+            oLi[i].onclick = function() {
+                for (var i = 0; i < oLi.length; i++) {
+
+                    oLi[i].className = '';
+                }
+                this.className = 'now';
+                text.innerHTML = "<h2>" + (this.index + 1) + "月份</h2>" + "<p>" + arr[this.index] + "</p>";
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <ul id="Ul">
+            <li class="now">1月份</li>
+            <li>2月份</li>
+            <li>3月份</li>
+            <li>4月份</li>
+            <li>5月份</li>
+            <li>6月份</li>
+            <li>7月份</li>
+            <li>8月份</li>
+            <li>9月份</li>
+            <li>10月份</li>
+            <li>11月份</li>
+            <li>12月份</li>
+        </ul>
+        <div id="box">
+            <h2>1月份</h2>
+            <p>太冷了</p>
+        </div>
+    </div>
+</body>
+
+</html>

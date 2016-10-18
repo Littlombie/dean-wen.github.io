@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>拖拽</title>
+    <style type="text/css">
+    #div1 {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
+    #div2 {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: green;
+    }
+
+    </style>
+    <script src="Drag.js"></script>
+    <script src="limit.js"></script>
+    <script>
+    window.onload = function(){
+    	new Drag('div1');
+
+        new limitDrag('div2');
+    }
+    
+        // 1.先把所有的函数嵌套都取出来，把所有的公用变量都设置成全局变量
+        // 2.把onmousemove,onmousedown,onmouseup 变成方法;
+        // 3.在此基础上继承一个limit类
+        // 把 Drag 封装为drag.js
+        // 建立继承limtiDrag;最大限度的重用drag方法；
+    </script>
+</head>
+
+<body>
+    <div id="div1">
+    drag
+    </div>
+
+    <div id="div2">
+    limit
+    </div>
+</body>
+
+</html>

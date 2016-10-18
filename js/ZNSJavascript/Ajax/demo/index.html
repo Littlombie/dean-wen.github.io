@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajax</title>
+    <script>
+    window.onload = function() {
+        var oBtn = document.getElementById('btn');
+        oBtn.onclick = function() {
+            newAjax('test.txt?t=' + new Date().getTime(), function(str) {
+                alert(str);
+            }, function() {
+                alert('请求失败');
+            });
+        };
+    };
+    // 封装Ajax
+    function newAjax(url, fnsuc, fnfail) {
+
+        //创建Ajax对象
+        //针对ie6,把XMLHttpRequest当做window的属性来使用，所以ie6不会报错，只会显示undefined;
+        if (window.XMLHttpRequest) {
+            //不兼容ie6
+            var oAjax = new XMLHttpRequest();
+        } else {
+            // 兼容ie6
+            var oAjax = ActiveXObject('Microsoft.XMLHTTP');
+        }
+
+        // 2.连接服务器
+        // open(方法，文件名，异步传输，)
+        oAjax.open('GET', url, true);
+
+        // 3.请求发送
+        oAjax.send();
+
+        // 4.接收返回
+        oAjax.onreadystatechange = function() {
+            // oAjax.readState //浏览器和服务器，进行到哪一步了 
+            if (oAjax.readyState == 4) { //读取完成（不管成功与失败,不代表成功）
+                if (oAjax.status == 200) { //成功
+                    // 成功了 输出alert('成功'+oAjax.responseText);
+                    fnsuc(oAjax.responseText);
+                } else {
+                    // 失败了 输出alert('失败'+oAjax.status);
+                    fnfail(oAjax.status);
+                }
+
+            };
+        };
+
+    };
+    </script>
+</head>
+
+<body>
+    <input id="btn" type="button" value="请求">
+</body>
+
+</html>

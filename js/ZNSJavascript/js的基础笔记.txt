@@ -1,0 +1,65 @@
+ECMAScript    核心部分    解释器   提供最基本的计算
+
+DOM  document object model  html文档  document
+
+BOM  browser 
+
+
+
+
+变量类型：
+parseInt  转换整数
+ 转换数字类型 时  如果出现非数字 直接跳出来
+parseFloat 转换小数
+
+数字跟任何非数字的值相加 都出现NaN
+而NaN和NaN不是相等的  isNaN(); 判断一个结果是否为非数字
++ 表示字符串项连 数字相加
+- 只表示数字相减
+
+局部变量 只能在定义它的函数里边使用
+全局变量 定义在最外边  ，适用于任何地方
+
+闭包   子函数可以使用父函数的局部变量
+eg:
+function aaa(){
+	var a=1;
+	function bbb(){
+	alert(a);
+	}
+	bbb();
+}
+
+---命名规范：
+匈牙利命名
+
+1.类型前缀
+
+参考：
+
+类型         前缀    类型       实例
+
+数组         a      Array       aItems
+布尔值       b      Boolean     bIsComplete
+浮点数       f      Float       fPrice
+函数         fn     function    fnHandler
+整数         i      Integer     iItemCount
+对象         o      Object      oDiv1
+正则表达式   re     RegExp      reEmailCheck
+字符串       s      String      sUserName
+变量实体     v      Variant     vAnything
+
+
+2.首字母大写
+eg:document.getElementById();
+
+
+if(){
+	
+}else{
+	
+}
+
+
+
+

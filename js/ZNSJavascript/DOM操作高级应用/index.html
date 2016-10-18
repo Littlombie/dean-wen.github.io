@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DOM应用，表格的增删</title>
+    <style type="text/css">
+    tr td {
+        text-align: center;
+    }
+    </style>
+    <script>
+    window.onload = function() {
+        // 鼠标移动改变背景,可以通过给每行绑定鼠标移上事件和鼠标移除事件来改变所在行背景色。
+        var oTab = document.getElementById('table');
+        // 遍历表格的每一行，其中tBodies[0]一定不能少
+        function changeColor() {
+            for (var i = 0; i < oTab.tBodies[0].rows.length; i++) {
+                oTab.tBodies[0].rows[i].onmouseover = function() {
+                    oldBackground = this.style.background; //保存之前的背景颜色，其中 oldBackground为全局变量
+                    this.style.background = 'red';
+                }
+                oTab.tBodies[0].rows[i].onmouseout = function() {
+                    this.style.background = oldBackground; //当鼠标移除时  会恢复原来的颜色
+                }
+
+                if (i % 2 == 0) { //行数取余，整除与不整除分别设置背景颜色
+                    oTab.tBodies[0].rows[i].style.background = '#ccc';
+                } else {
+                    oTab.tBodies[0].rows[i].style.background = '#666';
+                }
+            }
+        }
+        changeColor();
+        // 编写一个函数，供添加按钮调用，动态在表格的最后一行添加子节点；
+        var name = document.getElementById('inAdd');
+        var btn = document.getElementById('btn');
+        var id = oTab.tBodies[0].rows.length + 1;
+        btn.onclick = function() {
+            var tr = document.createElement('tr');
+            // 添加学号
+            var td = document.createElement('td');
+            td.innerHTML = id++;
+            tr.appendChild(td);
+            //添加姓名
+            var td = document.createElement('td');
+            td.innerHTML = name.value;
+            tr.appendChild(td);
+            //添加操作键
+            var td = document.createElement('td');
+            td.innerHTML = '<a href="javascript:;">删除</a>';
+            tr.appendChild(td);
+            //最后把这一行添加到表格中
+            oTab.tBodies[0].appendChild(tr);
+            //删除添加的行
+            tr.getElementsByTagName('a')[0].onclick = function() {
+                oTab.tBodies[0].removeChild(this.parentNode.parentNode);
+            }
+            changeColor();
+        }
+
+        // 删除之前的
+        var clear = document.getElementsByTagName('a');
+        for (var i = 0; i < clear.length; i++) {
+            clear[i].onclick = function() {
+                oTab.tBodies[0].removeChild(this.parentNode.parentNode);
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div class="containor">
+        <input type="text" id="inAdd">
+        <input type="button" id="btn" value="添加">
+        <table border="1" width="500px" id="table">
+            <thead>
+                <tr>
+                    <td>学号</td>
+                    <td>姓名</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>张三</td>
+                    <td><a href="javascript:;">删除</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>李四</td>
+                    <td><a href="javascript:;">删除</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>王五</td>
+                    <td><a href="javascript:;">删除</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>王五</td>
+                    <td><a href="javascript:;">删除</a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>王五</td>
+                    <td><a href="javascript:;">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

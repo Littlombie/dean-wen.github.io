@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>对象组成</title>
+    <script>
+    function creatPerson(name, qq) { //构造函数
+        // 系统创建好
+        // var this = new Object();
+        // 加工
+        // this是新的空白对象
+        this.name = name;
+        this.qq = qq;
+        this.showName = function() {
+            alert('我的名字' + this.name);
+        }
+        this.showQQ = function() {
+                alert('我的qq号' + this.qq);
+            }
+            // 系统偷偷返回出去
+        // return this;
+    }
+    var obj = new creatPerson('zhangsa', '1245145');
+    var obj2 = new creatPerson('sdfa', '124514adga5');
+    obj2.showName();
+    obj2.showQQ();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
